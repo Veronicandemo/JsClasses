@@ -47,8 +47,12 @@ class Rental extends Car {
         this.rentalEndDate = rentalEndDate
     }
     calculateRentalDuration() {
-       const duration  =  this.rentalEndDate - this.rentalStartDate
-       return  duration * 365
+        const day = 24 * 60 * 60 * 1000 //day in milliseconds
+        const date = new Date()
+        const startDate = new Date(this.rentalStartDate)
+        const endDate = new Date(this.rentalEndDate)
+        const duration = Math.round(Math.abs(endDate - startDate) / day)
+        return duration
     }
 }
 // // Create an instance of the Car class or function constructor for a car in the
@@ -63,13 +67,9 @@ console.log(toyota.toggleAvailability())
 console.log(mazda)
 console.log(mazda.toggleAvailability())
 
-const  rental = new Rental('Toyota', 'Camry', 1997, true,'veronica ndemo', 2006, 2008)
+const  rental = new Rental('Toyota', 'Camry',1990, true,'veronica ndemo', new Date(2006, 3, 5) , new Date(2008, 4, 7))
 //rental duration
 console.log(rental.calculateRentalDuration())
-
-
-
-
 
 // You are building a simple quiz app that contains multiple-choice questions. Your task is
 // to create two JavaScript classes: Question and Quiz. The Question class will represent
@@ -91,7 +91,9 @@ class Question {
         this.correctAnswer = correctAnswer
      }
      checkAnswer(userAns){
-        if(userAns === this.correctAnswer) return true
+        if(userAns === this.correctAnswer){
+            return true
+        } 
         else {
             return false
         }
@@ -117,23 +119,37 @@ class Question {
 
 
 class Quiz extends Question{
-    constructor(text,options,correctAnswer,questions, currentQuestionIndex,score){
+    constructor(text,options,correctAnswer){
         super(text,options,correctAnswer)
-        this.questions = questions;
-        this.currentQuestionIndex = currentQuestionIndex;
-        this.score = score
-
+        this.questions = [];
+        this.currentQuestionIndex = 0;
+        this.score = 0;
     }
     addQuestion(QtnObj){
-        this.question.push(QtnObj)
+        this.questions.push(QtnObj)
     }
     nextQuestion(){
+        this.currentQuestionIndex++;
 
     }
     submitAnswer(userAns){
-       if (this.checkAnswer(userAns)) {
-        this.score ++
+       const curQuestion = this.questions[this.currentQuestionIndex] 
+       if (curQuestion.checkAnswer(userAns) === true) {
+        this.score++;
        }
     }
 
 }
+
+const quiz = new Quiz();
+
+const qtn1 = new Question("What is the location of AkiraChix?", //Question
+['Hopper Lab', 'Karen', 'Ada lab'], //options
+'Karen' //correctAns
+);
+quiz.addQuestion(qtn1);
+
+quiz.submitAnswer('Karen'); 
+
+//final score
+console.log(`Your score is ${quiz.score}.`)
