@@ -49,6 +49,7 @@ class Rental extends Car {
     calculateRentalDuration() {
         const day = 24 * 60 * 60 * 1000 //day in milliseconds
         const startDate = new Date(this.rentalStartDate)
+        console.log(startDate)
         const endDate = new Date(this.rentalEndDate)
         const duration = Math.round(Math.abs(endDate - startDate) / day)
         return duration
