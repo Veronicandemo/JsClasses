@@ -15,7 +15,7 @@ const getUserData = async (usrid) => {
       const userData = {
         usrid,
         name: `User ${usrid}`,
-        number: `user${usrid}1234`,
+        number: `${randomNumber}231`,
       };
       resolve(userData);
     }, 1000);
@@ -28,6 +28,9 @@ const fetchUserData = async () => {
   }
 };
 fetchUserData();
+const min = 10000;
+const max = 30000;
+const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 // You have an asynchronous function performTask() that returns a Promise. 
 // The Promise resolves if the task is successful and rejects if there's an error. 
 // Write a function that calls performTask() and logs a custom success 
