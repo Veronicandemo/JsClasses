@@ -11,23 +11,9 @@ messages("'I love JavaScript 👧' ",3000)
 const userIds = [97, 34, 11, 21, 34, 45];
 const getUserData = async (usrid) => {
   return new Promise((resolve) => {
-    setTimeout(() => {
-      const userData = {
-        usrid,
-        name: `User ${usrid}`,
-        number: `${randomNumber}231`,
-      };
       resolve(userData);
     }, 1000);
-  });
 };
-const fetchUserData = async () => {
-  for (const id of userIds) {
-    const userData = await getUserData(id);
-    console.log(userData);
-  }
-};
-fetchUserData();
 const min = 10000;
 const max = 30000;
 const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
